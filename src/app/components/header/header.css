@@ -20,12 +20,18 @@
 }
 
 .header__nav a {
-  color: #ffffff;
-  text-decoration: none;
   padding: 0.4rem 0.8rem;
   border-radius: 6px;
+  color: #ffffff;
+  text-decoration: none;
 }
 
 .header__nav a:hover {
   background: rgba(255, 255, 255, 0.15);
+}
+
+.header__nav a.active {
+  background: #ffffff;
+  color: #1e3a5f;
+  font-weight: 700;
 }

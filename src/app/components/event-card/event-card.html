@@ -14,6 +14,8 @@
       }
     </p>
 
+    <a class="card__link" [routerLink]="['/events', event().id]">Voir les détails</a>
+
     <button type="button" class="card__button" (click)="toggleFavorite()">
       @if (isFavorite()) {
         ★ Retirer des favoris

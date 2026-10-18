@@ -1,1 +1,30 @@
-<h2>Détail de l'événement</h2>
+@if (event) {
+  <article class="details">
+    <img class="details__image" [src]="event.imageUrl" [alt]="event.title" />
+
+    <div class="details__body">
+      <span class="details__category">{{ event.category | uppercase }}</span>
+      <h2 class="details__title">{{ event.title }}</h2>
+
+      <p><strong>Date :</strong> {{ event.date | date: 'dd/MM/yyyy' }}</p>
+      <p><strong>Lieu :</strong> {{ event.place }}</p>
+      <p>
+        <strong>Prix :</strong>
+        @if (event.price === 0) {
+          Gratuit
+        } @else {
+          {{ event.price | currency: 'EUR' }}
+        }
+      </p>
+      <p class="details__description">{{ event.description }}</p>
+
+      <a class="details__back" routerLink="/events">← Retour aux événements</a>
+    </div>
+  </article>
+} @else {
+  <section class="details__missing">
+    <h2>Événement introuvable</h2>
+    <p>Aucun événement ne correspond à l'identifiant « {{ route.snapshot.paramMap.get('id') }} ».</p>
+    <a class="details__back" routerLink="/events">← Retour aux événements</a>
+  </section>
+}

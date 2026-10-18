@@ -54,8 +54,14 @@
   font-weight: 700;
 }
 
-.card__button {
+.card__link {
   margin-top: auto;
+  color: #1e3a5f;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.card__button {
   padding: 0.5rem;
   border: 1px solid #1e3a5f;
   border-radius: 8px;
