@@ -49,3 +49,13 @@
   padding: 2rem;
   text-align: center;
 }
+
+@media (max-width: 600px) {
+  .details__image {
+    height: 180px;
+  }
+
+  .details__body {
+    padding: 1rem;
+  }
+}

@@ -5,6 +5,11 @@
 body {
   margin: 0;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
   background: #f1f5f9;
   color: #0f172a;
+}
+
+img {
+  max-width: 100%;
 }

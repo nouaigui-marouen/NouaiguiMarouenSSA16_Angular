@@ -62,3 +62,13 @@
   text-align: center;
   color: #64748b;
 }
+
+@media (max-width: 600px) {
+  .list__toolbar h2 {
+    font-size: 1.25rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
