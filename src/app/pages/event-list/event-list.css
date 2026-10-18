@@ -1,0 +1,64 @@
+.list__toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.list__toolbar h2 {
+  margin: 0;
+}
+
+.list__favorites {
+  margin: 0;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  background: #fef3c7;
+  font-weight: 700;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+}
+
+.filters__button {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid #1e3a5f;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #1e3a5f;
+  cursor: pointer;
+}
+
+.filters__button.active {
+  background: #1e3a5f;
+  color: #ffffff;
+}
+
+.list__test {
+  margin: 1rem 0;
+  padding: 0.3rem 0.7rem;
+  border: 1px dashed #94a3b8;
+  border-radius: 6px;
+  background: transparent;
+  color: #475569;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.list__empty {
+  grid-column: 1 / -1;
+  padding: 2rem;
+  text-align: center;
+  color: #64748b;
+}

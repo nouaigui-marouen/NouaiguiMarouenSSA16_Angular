@@ -1,1 +1,39 @@
-<h2>Liste des événements</h2>
+<section class="list">
+  <div class="list__toolbar">
+    <h2>Événements ({{ filteredEvents().length }})</h2>
+    <p class="list__favorites">Favoris : {{ favoriteCount() }}</p>
+  </div>
+
+  <div class="filters">
+    @for (category of categories; track category) {
+      <button
+        type="button"
+        class="filters__button"
+        [class.active]="selectedCategory() === category"
+        (click)="selectCategory(category)"
+      >
+        {{ category }}
+      </button>
+    }
+  </div>
+
+  <button type="button" class="list__test" (click)="toggleEmptyList()">
+    @if (events().length === 0) {
+      Restaurer les événements
+    } @else {
+      Vider la liste (test)
+    }
+  </button>
+
+  <div class="grid">
+    @for (event of filteredEvents(); track event.id) {
+      <app-event-card
+        [event]="event"
+        [isFavorite]="isFavorite(event.id)"
+        (favoriteToggled)="toggleFavorite($event)"
+      />
+    } @empty {
+      <p class="list__empty">Aucun événement disponible</p>
+    }
+  </div>
+</section>
