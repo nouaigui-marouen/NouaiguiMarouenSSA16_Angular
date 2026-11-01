@@ -1,0 +1,75 @@
+<h2>Ajouter un événement</h2>
+
+<form [formGroup]="eventForm" (ngSubmit)="addEvent()">
+  <label>
+    Titre
+    <input type="text" formControlName="title" />
+  </label>
+  @if (f.title.touched && f.title.hasError('required')) {
+    <small class="error">Le titre est obligatoire.</small>
+  } @else if (f.title.touched && (f.title.hasError('minlength') || f.title.hasError('maxlength'))) {
+    <small class="error">Le titre doit contenir entre 5 et 50 caractères.</small>
+  }
+
+  <label>
+    Catégorie
+    <select formControlName="category">
+      <option value="">-- Choisir --</option>
+      <option value="Atelier">Atelier</option>
+      <option value="Conférence">Conférence</option>
+      <option value="Sport">Sport</option>
+    </select>
+  </label>
+  @if (f.category.touched && f.category.hasError('required')) {
+    <small class="error">La catégorie est obligatoire.</small>
+  }
+
+  <label>
+    Date
+    <input type="date" formControlName="date" />
+  </label>
+  @if (f.date.touched && f.date.hasError('required')) {
+    <small class="error">La date est obligatoire.</small>
+  }
+
+  <label>
+    Lieu
+    <input type="text" formControlName="place" />
+  </label>
+  @if (f.place.touched && f.place.hasError('required')) {
+    <small class="error">Le lieu est obligatoire.</small>
+  } @else if (f.place.touched && f.place.hasError('minlength')) {
+    <small class="error">Le lieu doit contenir au moins 3 caractères.</small>
+  }
+
+  <label>
+    Prix (€)
+    <input type="number" formControlName="price" min="0" />
+  </label>
+  @if (f.price.touched && f.price.hasError('required')) {
+    <small class="error">Le prix est obligatoire.</small>
+  } @else if (f.price.touched && f.price.hasError('min')) {
+    <small class="error">Le prix ne peut pas être négatif.</small>
+  }
+
+  <label>
+    Image (URL, facultatif)
+    <input type="text" formControlName="imageUrl" />
+  </label>
+
+  <label>
+    Description
+    <textarea formControlName="description"></textarea>
+  </label>
+  @if (f.description.touched && f.description.hasError('required')) {
+    <small class="error">La description est obligatoire.</small>
+  } @else if (f.description.touched && f.description.hasError('minlength')) {
+    <small class="error">La description doit contenir au moins 20 caractères.</small>
+  }
+
+  <button type="submit" [disabled]="eventForm.invalid">Ajouter</button>
+</form>
+
+<h3>Valeurs en direct</h3>
+<p>Statut : <strong>{{ formStatus() }}</strong></p>
+<pre>{{ formValue() | json }}</pre>
