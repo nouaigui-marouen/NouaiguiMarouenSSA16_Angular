@@ -108,3 +108,63 @@ src/app/
 
 ### Lazy loading de la page About
 ![Lazy loading About](docs/screenshots/lazy-loading-about.png)
+
+## Partie 2 : Formulaires et service à état
+
+Suite du projet : ajout d'un formulaire réactif de création d'événements et d'un service qui centralise les données avec des Signals.
+
+### Nouveaux éléments
+
+- **EventService** (`src/app/service/event.ts`) : source unique des événements et des favoris. Fourni à la racine (`providedIn: 'root'`).
+- **EventForm** (`src/app/pages/event-form/`) : formulaire réactif sur la route `/events/add`.
+
+### Structure ajoutée
+
+```
+src/app/
+├── service/
+│   └── event.ts                 EventService (Signals privés, asReadonly, computed)
+└── pages/
+    └── event-form/              EventForm (FormGroup, validations, toSignal)
+```
+
+### Service et Signals
+
+- `_events` et `_favorites` sont des Signals privés. Seul le service peut les modifier.
+- `events` et `favorites` sont exposés en lecture seule avec `asReadonly()`.
+- `eventCount`, `favoriteCount` et `freeEventCount` sont des `computed()`.
+- `addEvent()` génère l'identifiant unique.
+- `deleteEvent()` supprime l'événement et le retire aussi des favoris.
+- `toggleFavorite()` ajoute ou retire un identifiant des favoris.
+
+### Formulaire
+
+- Champs : titre, catégorie, date, lieu, prix, image (facultative) et description.
+- Validations : titre de 5 à 50 caractères, lieu d'au moins 3 caractères, prix ≥ 0, description d'au moins 20 caractères.
+- Messages d'erreur affichés après que le champ a été touché.
+- Bouton « Ajouter » désactivé tant que le formulaire est invalide.
+- `formValue` et `formStatus` créés avec `toSignal()` à partir de `valueChanges` et `statusChanges`, affichés en direct (JSON et statut VALID/INVALID).
+- Après ajout : retour à `/events`, avec l'événement affiché immédiatement.
+
+### Tests (Partie 2)
+
+| Cas testé | Résultat |
+|---|---|
+| Formulaire vide : message d'erreur et bouton désactivé | OK |
+| Titre trop court | OK |
+| Statut INVALID / VALID et valeurs en direct | OK |
+| Ajout d'un événement, affichage immédiat, compteurs mis à jour | OK |
+| Ajout d'un favori puis suppression : le compteur favoris diminue | OK |
+| Détail avec identifiant inexistant | OK |
+| Lazy loading de About | OK |
+| `ng test` : 4 tests réussis | OK |
+
+### Captures d'écran (Partie 2)
+
+![Formulaire de création](docs/screenshots/FormErrors.png)
+
+![Liste](/docs/screenshots/ListEvents.png)
+
+![Liste avec nouveau événement ajouté et favorisé ](/docs/screenshots/ListeDeventsNouveauEventFavori.png )
+
+![Suppression de nouveau événement](/docs/screenshots/SupprimerNouveauEvent.png)

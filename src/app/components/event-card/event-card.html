@@ -1,27 +1,20 @@
 <article class="card" [class.active]="isFavorite()">
-  <img class="card__image" [src]="event().imageUrl" [alt]="event().title" />
+  @if (event().imageUrl) {
+    <img [src]="event().imageUrl" [alt]="event().title" />
+  } @else {
+    <div class="no-image">{{ event().category }}</div>
+  }
 
-  <div class="card__body">
-    <span class="card__category">{{ event().category | uppercase }}</span>
-    <h3 class="card__title">{{ event().title }}</h3>
-    <p class="card__info">{{ event().date | date: 'dd/MM/yyyy' }} · {{ event().place }}</p>
+  <span class="badge">{{ event().category | uppercase }}</span>
+  <h3>{{ event().title }}</h3>
+  <p>{{ event().date | date:'dd/MM/yyyy' }} · {{ event().place }}</p>
+  <p>
+    @if (event().price === 0) { Gratuit } @else { {{ event().price | currency:'EUR' }} }
+  </p>
 
-    <p class="card__price">
-      @if (event().price === 0) {
-        Gratuit
-      } @else {
-        {{ event().price | currency: 'EUR' }}
-      }
-    </p>
-
-    <a class="card__link" [routerLink]="['/events', event().id]">Voir les détails</a>
-
-    <button type="button" class="card__button" (click)="toggleFavorite()">
-      @if (isFavorite()) {
-        ★ Retirer des favoris
-      } @else {
-        ☆ Ajouter aux favoris
-      }
-    </button>
-  </div>
+  <button (click)="favoriteToggled.emit(event().id)">
+    @if (isFavorite()) { ★ Retirer des favoris } @else { ☆ Ajouter aux favoris }
+  </button>
+  <button (click)="deleteRequested.emit(event().id)">Supprimer</button>
+  <a [routerLink]="['/events', event().id]">Voir les détails</a>
 </article>

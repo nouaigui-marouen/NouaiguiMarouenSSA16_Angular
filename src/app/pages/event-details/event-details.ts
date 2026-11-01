@@ -1,18 +1,15 @@
-import { Component, inject } from '@angular/core';
-import { CurrencyPipe, DatePipe, UpperCasePipe } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { EVENTS } from '../event-list/event-list';
-import { EventItem } from '../../models/event-item';
+import { Component, input, computed, inject } from '@angular/core';
+import { DatePipe, CurrencyPipe } from '@angular/common';
+import {EventService} from '../../service/event';
 
 @Component({
   selector: 'app-event-details',
-  imports: [DatePipe, CurrencyPipe, UpperCasePipe, RouterLink],
+  imports: [DatePipe, CurrencyPipe],
   templateUrl: './event-details.html',
-  styleUrl: './event-details.css',
+  styleUrl: './event-details.css'
 })
 export class EventDetails {
-  protected readonly route = inject(ActivatedRoute);
-
-  readonly eventId = Number(this.route.snapshot.paramMap.get('id'));
-  readonly event: EventItem | undefined = EVENTS.find((event) => event.id === this.eventId);
+  id = input.required<string>();
+  private readonly service = inject(EventService);
+  readonly event = computed(() => this.service.getEventById(Number(this.id())));
 }
